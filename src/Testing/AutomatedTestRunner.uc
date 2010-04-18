@@ -1,4 +1,5 @@
-class AutomatedTestRunner extends BaseObject;
+class AutomatedTestRunner extends BaseObject
+  config(dummyConfig); // made config to satisfy UT3 compiler
 
 struct TestResult {
   var bool passed;
@@ -6,10 +7,10 @@ struct TestResult {
   var string description;
 };
 
-var bool bRecordResults;
-var array<TestResult> testResults;
-var string descriptionPrefix;
-var array<string> expectedAssertFailures;
+var config bool bRecordResults; // made config to satisfy UT3 compiler
+var config array<TestResult> testResults; // made config to satisfy UT3 compiler
+var config string descriptionPrefix; // made config to satisfy UT3 compiler
+var config array<string> expectedAssertFailures; // made config to satisfy UT3 compiler
 
 simulated static function staticExpectAssertFail(string expectedMessage) {
   default.expectedAssertFailures[default.expectedAssertFailures.length] = expectedMessage;
@@ -53,10 +54,10 @@ simulated static function printTestResult(TestResult result) {
   else
     okNotOk = "not ok";
     
-  log(okNotOk$" "$result.testNumber$": "$result.description);
+  class'PlatformStatics'.static.platformLog(okNotOk$" "$result.testNumber$": "$result.description);
 }
 
-simulated static function printResults() {
+simulated function printResults() {
   local int i, passedTests, failedTests;
   
   for (i=0;i<default.testResults.length;i++) {
@@ -68,9 +69,9 @@ simulated static function printResults() {
   }
   
   if ((passedTests + failedTests) == 0)
-    log("No tests to run.");
+    infoMessage("No tests to run.");
   else
-    log(passedTests $ "/" $ (passedTests + failedTests) $ " tests passed. (" $ ((float(passedTests) / (passedTests + failedTests)) * 100)  $ "%)");
+    infoMessage(passedTests $ "/" $ (passedTests + failedTests) $ " tests passed. (" $ ((float(passedTests) / (passedTests + failedTests)) * 100)  $ "%)");
 }
 
 simulated static function bool allTestsPassed() {

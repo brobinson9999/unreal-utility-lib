@@ -1,4 +1,4 @@
-class ParameterTestCommandlet extends TestCommandletBase;
+class ParameterTestCommandlet extends Commandlet;
 
 var array<string> testNames;
 
@@ -9,8 +9,8 @@ event int main(string parameters) {
   local DefaultClock clock;
   local Logger logger;
   
-  replaceText(parameters, "\"", "");
-  split(parameters, " ", testNames);
+  class'PlatformStatics'.static.platformReplaceText(parameters, "\"", "");
+  testNames = class'PlatformStatics'.static.platformSplitString(parameters, " ");
   
   class'AutomatedTestRunner'.default.bRecordResults = true;
   testRunner = new class'AutomatedTestRunner';
@@ -28,7 +28,7 @@ event int main(string parameters) {
   allocator.propogateGlobals(logger);
   allocator.propogateGlobals(testRunner);
   
-  runTests(testRunner);
+  runTests(testRunner, logger);
   testRunner.printResults();  
   bAllTestsPassed = testRunner.allTestsPassed();
   
@@ -40,7 +40,7 @@ event int main(string parameters) {
     return 1;
 }
 
-function runTests(AutomatedTestRunner testRunner) {
+function runTests(AutomatedTestRunner testRunner, Logger logger) {
   local int i;
   local class<AutomatedTest> testClass;
   
@@ -48,7 +48,7 @@ function runTests(AutomatedTestRunner testRunner) {
     if (testNames[i] != "") {
       testClass = class<AutomatedTest>(dynamicLoadObject(testNames[i], class'Class', true));
       if (testClass == none)
-        log("Could not load test class '"$testNames[i]$"'.");
+        logger.logMessage("Could not load test class '"$testNames[i]$"'.");
       else
         testRunner.runTest(testClass);
     }
