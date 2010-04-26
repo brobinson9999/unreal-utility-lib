@@ -189,6 +189,34 @@ simulated function float getPerformanceThrottleFactor() {
 // ********************************************************************************************************************************************
 // ********************************************************************************************************************************************
 
+simulated static function vector copyRotToVect(rotator input) {
+  local vector result;
+  
+  result.x = input.yaw;
+  result.y = input.pitch;
+  result.z = input.roll;
+  
+  return result;
+}
+
+simulated static function rotator copyVectToRot(vector input) {
+  local rotator result;
+  
+  result.yaw = input.x;
+  result.pitch = input.y;
+  result.roll = input.z;
+  
+  return result;
+}
+
+simulated static function vector capVector(vector in, float maxLength) {
+  return normal(in) * fmin(maxLength, vsize(in));
+}
+
+simulated static function rotator capRotator(rotator in, float maxLength) {
+  return copyVectToRot(capVector(copyRotToVect(in), maxLength));
+}
+
 final static operator(23) vector coordRot(vector A, rotator B)
 {
   if (A == Vect(0,0,0) || B == Rot(0,0,0))
