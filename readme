@@ -1,0 +1,16 @@
+unreal-utility-lib
+------------------
+
+  This work is licensed under the GNU GPLv3 or any later version.
+  The latest code from this project should be available at:
+  http://github.com/brobinson9999/unreal-utility-lib
+
+Dependencies
+  It is possible to build the unreal-utility-lib package using conventional means, in which case no additional dependencies are required. The optional build scripts have a dependency on pyun-build, avaiable on Github at:
+  http://github.com/brobinson9999/pyun-build
+
+Building
+  These utilities can be built for either UT2004 or UT3. To build for UT2004 the code from the src and src-ut2004 subdirectories should be used. To build for UT3 the code from src and src-ut3 should be used.
+
+Using the Build Scripts
+  As written, the build scripts expect *.uc to be in the same directory as the build script. This can be changed in the build scripts, or you can copy all of the files into one directory before building. pyun-build contains tools for doing this easily and a suitable Makefile can be used to automate the build.

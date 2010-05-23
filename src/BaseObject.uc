@@ -358,9 +358,7 @@ simulated function setTimer(float time)
   timerEvent.callback = timerElapsed;
 }
 
-simulated function timerElapsed()
-{
-}
+simulated function timerElapsed();
 
 simulated function cancelTimer() {
   if (timerEvent != none) {

@@ -2,4 +2,4 @@
 
 from buildUT3Mod import *
 
-buildUT3mod("UnrealUtilityLib", ["."], [], [])
+buildUT3mod(os.getenv("UT3PATH"), "UnrealUtilityLib", ["."], [], [])
