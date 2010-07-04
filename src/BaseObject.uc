@@ -273,15 +273,26 @@ final static operator(23) rotator unCoordRot(rotator A, rotator B)
 // ********************************************************************************************************************************************
 // ********************************************************************************************************************************************
 
-simulated static function rotator smallestRotatorMagnitude(rotator InputRotator)
+simulated static function rotator smallestRotatorMagnitude(rotator inputRotator)
 {
-  local rotator Result;
+  local rotator result;
 
-  Result.Yaw = SmallestRotatorAngleMagnitude(InputRotator.Yaw);
-  Result.Pitch = SmallestRotatorAngleMagnitude(InputRotator.Pitch);
-  Result.Roll = SmallestRotatorAngleMagnitude(InputRotator.Roll);
+  result.yaw = smallestRotatorAngleMagnitude(inputRotator.yaw);
+  result.pitch = smallestRotatorAngleMagnitude(inputRotator.pitch);
+  result.roll = smallestRotatorAngleMagnitude(inputRotator.roll);
 
-  return Result;
+  return result;
+}
+
+simulated static function vector smallestVRotatorMagnitude(vector inputVRotator)
+{
+  local vector result;
+
+  result.x = smallestRotatorAngleMagnitude(inputVRotator.x);
+  result.y = smallestRotatorAngleMagnitude(inputVRotator.y);
+  result.z = smallestRotatorAngleMagnitude(inputVRotator.z);
+
+  return result;
 }
 
 simulated static function float smallestRotatorAngleMagnitude(float InputAngle)
