@@ -1,16 +1,20 @@
 class ParameterTestCommandlet extends Commandlet;
 
-var array<string> testNames;
+//var private array<string> testNames;
 
 event int main(string parameters) {
+  if (staticMain(class'PlatformStatics'.static.platformSplitString(class'PlatformStatics'.static.platformReplaceText(parameters, "\"", ""), " ")))
+    return 0;
+  else
+    return 1;
+}
+
+simulated static function bool staticMain(array<string> testNames) {
   local bool bAllTestsPassed;
   local AutomatedTestRunner testRunner;
   local ObjectAllocator allocator;
   local DefaultClock clock;
   local Logger logger;
-  
-  class'PlatformStatics'.static.platformReplaceText(parameters, "\"", "");
-  testNames = class'PlatformStatics'.static.platformSplitString(parameters, " ");
   
   class'AutomatedTestRunner'.default.bRecordResults = true;
   testRunner = new class'AutomatedTestRunner';
@@ -28,19 +32,16 @@ event int main(string parameters) {
   allocator.propogateGlobals(logger);
   allocator.propogateGlobals(testRunner);
   
-  runTests(testRunner, logger);
+  runTests(testRunner, logger, testNames);
   testRunner.printResults();  
   bAllTestsPassed = testRunner.allTestsPassed();
   
   testRunner.cleanup();
   
-  if (bAllTestsPassed)
-    return 0;
-  else
-    return 1;
+  return bAllTestsPassed;
 }
 
-function runTests(AutomatedTestRunner testRunner, Logger logger) {
+simulated static function runTests(AutomatedTestRunner testRunner, Logger logger, array<string> testNames) {
   local int i;
   local class<AutomatedTest> testClass;
   

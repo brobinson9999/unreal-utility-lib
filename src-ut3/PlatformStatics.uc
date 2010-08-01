@@ -1,7 +1,7 @@
 class PlatformStatics extends Logger;
 
-simulated static final function platformReplaceText(out string text, string replace, string with) {
-  text = repl(text, replace, with);
+simulated static final function string platformReplaceText(string text, string replace, string with) {
+  return repl(text, replace, with);
 }
 
 simulated static final function platformLog(string message) {
