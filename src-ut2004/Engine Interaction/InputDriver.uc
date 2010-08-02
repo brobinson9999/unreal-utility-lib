@@ -36,7 +36,20 @@ simulated function cleanup()
   master.removeInteraction(self);
   master = none;
 }
+
+simulated static function InputDriver installNewInputDriver(PlayerController pc) {
+  local InputDriver newDriver;
   
+  // Set Interaction Master to require raw joystick data.
+  // Not sure if this is necessary or not.
+  pc.player.interactionMaster.bRequireRawJoystick = true;
+
+  // Create Input Interaction.
+  newDriver = InputDriver(pc.player.interactionMaster.addInteraction("UnrealUtilityLib.InputDriver"));
+
+  return newDriver;
+}
+
 defaultproperties
 {
   bActive=true
