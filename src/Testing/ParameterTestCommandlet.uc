@@ -3,18 +3,18 @@ class ParameterTestCommandlet extends Commandlet;
 //var private array<string> testNames;
 
 event int main(string parameters) {
-  if (staticMain(class'PlatformStatics'.static.platformSplitString(class'PlatformStatics'.static.platformReplaceText(parameters, "\"", ""), " ")))
+  if (staticMain(class'PlatformStatics'.static.platformSplitString(class'PlatformStatics'.static.platformReplaceText(parameters, "\"", ""), " "), new class'DefaultLogger'))
     return 0;
   else
     return 1;
 }
 
-simulated static function bool staticMain(array<string> testNames) {
+simulated static function bool staticMain(array<string> testNames, Logger logger) {
   local bool bAllTestsPassed;
   local AutomatedTestRunner testRunner;
   local ObjectAllocator allocator;
   local DefaultClock clock;
-  local Logger logger;
+//  local Logger logger;
   
   class'AutomatedTestRunner'.default.bRecordResults = true;
   testRunner = new class'AutomatedTestRunner';
@@ -22,7 +22,7 @@ simulated static function bool staticMain(array<string> testNames) {
   allocator = new class'CompositeObjectPool';
   clock = new class'DefaultClock';
   clock.setEventQueue(new class'DynamicArrayEventQueue');
-  logger = new class'DefaultLogger';
+//  logger = new class'DefaultLogger';
   allocator.setObjectAllocator(allocator);
   allocator.setClock(clock);
   allocator.setLogger(logger);

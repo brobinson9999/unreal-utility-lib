@@ -124,7 +124,7 @@ simulated function testAssert(bool condition, optional string description) {
 simulated function myAssert(bool condition, optional string description) {
   local string messageText;
   
-  class'AutomatedTestRunner'.static.staticAssert(condition, description, messageText);
+  class'AutomatedTestRunner'.static.staticAssert(condition, description, messageText, self);
   if (!condition && !class'AutomatedTestRunner'.default.bRecordResults)
     errorMessage(messageText);
 }

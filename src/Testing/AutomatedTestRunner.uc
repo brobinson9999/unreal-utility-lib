@@ -16,7 +16,7 @@ simulated static function staticExpectAssertFail(string expectedMessage) {
   default.expectedAssertFailures[default.expectedAssertFailures.length] = expectedMessage;
 }
 
-simulated static function bool staticAssert(bool condition, optional string description, optional out string messageText) {
+simulated static function bool staticAssert(bool condition, optional string description, optional out string messageText, optional BaseObject logObject) {
   local TestResult result;
   
   if (!condition) {
@@ -40,21 +40,26 @@ simulated static function bool staticAssert(bool condition, optional string desc
     result.description = default.descriptionPrefix $ description;
     default.testResults[default.testResults.length] = result;
     
-    printTestResult(result);
+    printTestResult(result, logObject);
   }
   
   return condition;
 }
 
-simulated static function printTestResult(TestResult result) {
+simulated static function printTestResult(TestResult result, BaseObject logObject) {
   local string okNotOk;
-  
+  local string resultMessage;
+    
   if (result.passed)
     okNotOk = "ok";
   else
     okNotOk = "not ok";
-    
-  class'PlatformStatics'.static.platformLog(okNotOk$" "$result.testNumber$": "$result.description);
+  
+  resultMessage = okNotOk$" "$result.testNumber$": "$result.description;
+  if (logObject != none)
+    logObject.infoMessage(resultMessage);
+  else
+    class'PlatformStatics'.static.platformLog(resultMessage);
 }
 
 simulated function printResults() {
