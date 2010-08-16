@@ -16,7 +16,7 @@ simulated function bool keyEvent(out EInputKey key, out EInputAction action, flo
   local string keyName;
   local string actionName;
   local bool bHandled;
-
+  
   keyName = String(getEnum(Enum'EInputKey', key));
   actionName = String(getEnum(Enum'EInputAction', action));
 
