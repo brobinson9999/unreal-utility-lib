@@ -30,5 +30,5 @@ simulated function runTests() {
   myAssert(abs(class'Ballistics'.static.maxLobRange(0, 0, 0, 2) - 0) < 0.1 , "(is (max-lob-range 0 0 0 2) 0 :compare-sym 'close-to)");
   myAssert(abs(class'Ballistics'.static.maxLobRange(0, 0.5, sqrt(2), 1.0) - 1) < 0.1 , "(is (max-lob-range 0 0.5 (sqrt 2) 1.0) 1 :compare-sym 'close-to)");
   
-//  log(class'Ballistics'.static.getLaunchDirection(100, vect(0,0,0), vect(1000,0,0), vect(0,0, -100)));
+  class'PlatformStatics'.static.platformLog(class'Ballistics'.static.getLaunchDirection(100, vect(0,0,0), vect(1000,0,0), vect(0,0, -100)));
 }

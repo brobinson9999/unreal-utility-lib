@@ -8,7 +8,7 @@ simulated static final function string platformReplaceText(string text, string r
   return result;
 }
 
-simulated static final function platformLog(string message) {
+simulated static final function platformLog(coerce string message) {
   log(message);
 }
 

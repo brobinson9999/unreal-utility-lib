@@ -45,7 +45,8 @@ simulated static function float maxLobRange(float startingHeight, float finalHei
 simulated static function vector getLaunchDirection(float initialSpeed, vector startPosition, vector endPosition, vector gravity) {
   local vector testDirection1;
   
-  testDirection1 = normal((vect(1,1,0) * (endPosition - startPosition)) + vect(0,0,1));
+  testDirection1 = normal(normal(vect(1,1,0) * (endPosition - startPosition)) + vect(0,0,1));
+  class'PlatformStatics'.static.platformLog("getLaunchDirection "$normal(endPosition - startPosition)$" "$testDirection1);
   return getLaunchDirectionIterative(initialSpeed, startPosition, endPosition, gravity, testDirection1, vect(0,0,1), 0.1);
 }
 
@@ -77,7 +78,7 @@ simulated static function vector getLaunchDirectionIterative(float initialSpeed,
   if (deltaDistance2 < acceptThreshold)
     return testDirection2;
   
-  log(testDirection1$" "$testDirection2$" "$deltaDistance1$" "$deltaDistance2);
+  class'PlatformStatics'.static.platformLog(testDirection1$" "$testDirection2$" "$deltaDistance1$" "$deltaDistance2);
   
   middleDirection = normal(testDirection1 + testDirection2);
   if (deltaDistance1 < deltaDistance2)
