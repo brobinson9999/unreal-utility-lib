@@ -64,11 +64,21 @@ simulated function object allocateObject(class<object> objectClass) {
 }
 
 simulated function object allocateObjectWithoutPropogation(class<object> objectClass) {
-  return getObjectAllocator().getInstance(objectClass);
+  local ObjectAllocator allocator;
+  
+  allocator = getObjectAllocator();
+  if (allocator != none)
+    return allocator.getInstance(objectClass);
+  else
+    return new objectClass;
 }
 
 simulated function freeObject(object other) {
-  getObjectAllocator().freeInstance(other);
+  local ObjectAllocator allocator;
+  
+  allocator = getObjectAllocator();
+  if (allocator != none)
+    allocator.freeInstance(other);
 }
 
 simulated function freeAndCleanupObject(BaseObject other) {
@@ -77,7 +87,8 @@ simulated function freeAndCleanupObject(BaseObject other) {
   if (game != none && other == self) {
     oldAllocator = getObjectAllocator();
     cleanup();
-    oldAllocator.freeObject(self);
+    if (oldAllocator != none)
+      oldAllocator.freeObject(self);
   } else {
     other.cleanup();
     freeObject(other);
@@ -101,6 +112,8 @@ simulated function Logger getLogger() {
 simulated function errorMessage(coerce String message) {
   if (getLogger() != none)
     getLogger().logMessage(message);
+  else
+    class'PlatformStatics'.static.platformLog(message);
 }
 
 simulated function infoMessage(coerce String message) {
