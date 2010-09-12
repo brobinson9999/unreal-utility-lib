@@ -13,4 +13,4 @@ Building
   These utilities can be built for either UT2004 or UT3. To build for UT2004 the code from the src and src-ut2004 subdirectories should be used. To build for UT3 the code from src and src-ut3 should be used.
 
 Using the Build Scripts
-  As written, the build scripts expect *.uc to be in the same directory as the build script. This can be changed in the build scripts, or you can copy all of the files into one directory before building. pyun-build contains tools for doing this easily and a suitable Makefile can be used to automate the build.
+  The build scripts use pyun-build. It should be in the same directory or on your PYTHONPATH. You will need to set your UT3PATH or UT2004PATH environment variable, or you can alter the build scripts to specify a path directly.

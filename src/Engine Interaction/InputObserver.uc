@@ -10,6 +10,27 @@ simulated function activateItem();
 simulated function fire(float f);
 simulated function altFire(float f);
 simulated function use();
+ 
+// Some others could potentially be added:
+// 
+// ** Potentially Usable
+// ThrowWeapon
+// 
+// SwitchToLastWeapon (exec function in Pawn)
+// SwitchToBestWeapon (exec function in Controller)
+// 
+// InventoryNext (exists or could exist)
+// InventoryPrevious (exists or could exist)
+// InventoryActivate (exists or could exist)
+// PlayVehicleHorn (exec function in UnrealPlayer)
+// 
+// ** Don't really want to use these
+// StrafeToggle
+// CenterView
+// 
+// ToggleBehindView (exec function in PlayerController)
+// 
+// ToggleFreeCam
 
 defaultproperties
 {
