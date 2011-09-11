@@ -1,4 +1,4 @@
-class PlatformStatics extends Object;
+class PlatformStatics extends Object abstract;
 
 simulated static final function string platformReplaceText(string text, string replace, string with) {
   local string result;

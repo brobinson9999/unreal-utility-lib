@@ -11,6 +11,14 @@ simulated function cleanup()
   master = none;
 }
 
+simulated static function CanvasDriver getSingletonCanvasDriver(PlayerController pc) {
+  // Set Interaction Master to require raw joystick data. Not sure if this is necessary or not.
+  pc.player.interactionMaster.bRequireRawJoystick = true;
+
+  return CanvasDriver(class'InteractionUtils'.static.getSingletonInteraction(pc, class'CanvasDriver', "UnrealUtilityLib.CanvasDriver"));
+}
+
+/*
 simulated static function CanvasDriver installNewCanvasDriver(PlayerController pc) {
   local CanvasDriver newDriver;
 
@@ -19,6 +27,7 @@ simulated static function CanvasDriver installNewCanvasDriver(PlayerController p
 
   return newDriver;
 }
+*/
 
 defaultproperties
 {

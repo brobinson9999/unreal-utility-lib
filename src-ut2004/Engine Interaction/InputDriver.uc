@@ -37,6 +37,14 @@ simulated function cleanup()
   master = none;
 }
 
+simulated static function InputDriver getSingletonInputDriver(PlayerController pc) {
+  // Set Interaction Master to require raw joystick data. Not sure if this is necessary or not.
+  pc.player.interactionMaster.bRequireRawJoystick = true;
+
+  return InputDriver(class'InteractionUtils'.static.getSingletonInteraction(pc, class'InputDriver', "UnrealUtilityLib.InputDriver"));
+}
+
+/*
 simulated static function InputDriver installNewInputDriver(PlayerController pc) {
   local InputDriver newDriver;
   
@@ -49,6 +57,7 @@ simulated static function InputDriver installNewInputDriver(PlayerController pc)
 
   return newDriver;
 }
+*/
 
 defaultproperties
 {
